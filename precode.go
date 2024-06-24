@@ -18,14 +18,6 @@ func Generator(ctx context.Context, ch chan<- int64, fn func(int64)) {
 	// 1. Функция Generator
 	var val int64 = 1
 	for {
-		// if ctx.Err() != nil {
-		// 	return
-		// }
-		// ch <- val
-
-		// fn(val)
-		// val += 1
-
 		select {
 		case <-ctx.Done():
 			close(ch)
@@ -48,7 +40,6 @@ func Worker(in <-chan int64, out chan<- int64) {
 
 func main() {
 	chIn := make(chan int64)
-	//defer close(chIn)
 
 	// 3. Создание контекста
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
